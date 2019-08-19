@@ -7,18 +7,14 @@ import cors from 'cors';
 import index from './routes/index';
 import './utilities/dotenv';
 import defaultErrorHandler from './middlewares/defaultErrorHandler';
-//import dbConnection from './utilities/dbConnection';
+import {dbConnection, MongoStore} from './utilities/dbConnection';
 const logger = require('./utilities/logger')('server');
+
+
+
 const app = express();
 
-const MongoStore = mongo(session);
-mongoose.Promise = global.Promise; 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }); //ADDED: new url parser, TODO: see difference between them.
-mongoose.connection.on('error', () => {
-  logger.log('error', 'MongoDB connection error. Please make sure MongoDB is running.');
-  process.exit();
-});
-mongoose.connection.once('open', () => logger.log('info', 'MongoDB has been connected.'));
+dbConnection();
 
 app.use(cors());
 
