@@ -2,8 +2,8 @@ import session from 'express-session';
 import mongo from 'connect-mongo';
 import mongoose from 'mongoose';
 
-import './utilities/dotenv';
-const logger = require('./utils/logger')('server');
+import './dotenv';
+const logger = require('./logger')('server');
 
 const MongoStore = mongo(session);
 mongoose.Promise = global.Promise; 

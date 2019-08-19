@@ -1,4 +1,4 @@
-const logger = require('../utils/logger')('errorHandler');
+const logger = require('../utilities/logger')('errorHandler');
 
 const defaultErrorHandler = (error, req, res, next) => {
   logger.log('error', `${error.name}:${error.status} - ${error.message}`);
