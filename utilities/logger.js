@@ -43,9 +43,9 @@ const Logger = fileName => {
   });
   return logger;
 };
-//FIXME: in case of error of exporting
-//module.exports = Logger;
-export {Logger};
+//TODO: ES6
+module.exports = Logger;
+//export {Logger};
 
 // { 
 //  Logging levels : 
