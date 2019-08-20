@@ -21,15 +21,10 @@ userSchema.pre('save', async function callback(next) {
 });
 
 const UserModel = mongoose.model('User', userSchema);
-
 const save = async model => new UserModel(model).save();
-
 const getUserByName = async username => UserModel.findOne({ username });
-
 const getUserByEmail = async email => UserModel.findOne({ email });
-
-const comparePassword = async ({ userPassword, rehashedPassword }) =>
-  bcrypt.compare(userPassword, rehashedPassword);
+const comparePassword = async ({ userPassword, rehashedPassword }) => bcrypt.compare(userPassword, rehashedPassword);
 
 UserModel.schema
   .path('username')

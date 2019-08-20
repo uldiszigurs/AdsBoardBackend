@@ -3,9 +3,10 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import cors from 'cors';
 import index from './routes/index';
-import authentication from './routes/authentication';
+import authenticationRouter from './routes/authenticationRouter';
 import './utilities/dotenv';
 import defaultErrorHandler from './middlewares/defaultErrorHandler';
+import authenticate from './middlewares/authenticate';
 import {dbConnection, MongoStore} from './utilities/dbConnection';
 const logger = require('./utilities/logger')('server');
 
@@ -31,7 +32,8 @@ app.use(
   }),
 );
 
-app.use(`/api/v${process.env.API_VERSION}/authentication`, authentication);
+app.use(`/api/v${process.env.API_VERSION}/authentication`, authenticationRouter);
+app.use(`/api/v${process.env.API_VERSION}/media`, authenticate);
 app.use(`/api/v${process.env.API_VERSION}`, index);
 app.use(defaultErrorHandler);
 
