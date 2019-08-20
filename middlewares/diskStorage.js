@@ -1,6 +1,6 @@
-import multer from 'multer';
+import multer from 'multer'; //https://www.npmjs.com/package/multer Middleware for multipart/form-data (uploading files)
 import path from 'path';
-import * as fsHandler from '../utils/fsHandler';
+import * as fsHandler from '../utilities/fsHandler';
 import { UPLOAD_FOLDER } from '../consts/webConsts';
 
 const storage = multer.diskStorage({
