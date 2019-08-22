@@ -8,11 +8,11 @@ const commentSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
+//message = content of comment, username = posted by X user, postId = id of 
 
 const CommentModel = mongoose.model('Comment', commentSchema);
 
 const save = async model => new CommentModel(model).save();
+const getCommentsByPostId = async mediaId => CommentModel.find({ mediaId });
 
-const getCommentsByPost = async mediaId => CommentModel.find({ mediaId });
-
-export { save, getCommentsByPost, commentSchema };
+export { save, getCommentsByPostId, commentSchema };

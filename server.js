@@ -8,7 +8,8 @@ import media from './routes/media';
 import './utilities/dotenv';
 import defaultErrorHandler from './middlewares/defaultErrorHandler';
 import authenticate from './middlewares/authenticate';
-import {dbConnection, MongoStore} from './utilities/dbConnection';
+import postRouter from './routes/post';
+import { dbConnection, MongoStore } from './utilities/dbConnection';
 const logger = require('./utilities/logger')('server');
 
 
@@ -34,17 +35,18 @@ app.use(
 );
 
 app.use(`/api/v${process.env.API_VERSION}/authentication`, authenticationRouter);
-app.use(`/api/v${process.env.API_VERSION}/media`, authenticate, media);
-app.use(`/api/v${process.env.API_VERSION}`, index);
+//app.use(`/api/v${process.env.API_VERSION}/media`, authenticate, media);
+app.use(`/api/v${process.env.API_VERSION}/post`, authenticate, postRouter)
+app.use(`/api/v${process.env.API_VERSION}`, index); //FIXME: Careful with path sequence
 app.use(defaultErrorHandler);
 
 const host = process.env[`HOST_${process.platform.toUpperCase()}`];
 const port = process.env.PORT || process.env.HOST_PORT;
 
 /* 
-User => Post => media & Comments
+User => Post => media, title, otherinfo => Comments
 UserSchema : email, username, password 
-PostSchema : postAttachedToUsername, postTitle, PostInfo(something else potentially), createdAt, updatedAt
+PostSchema : postedByUsername, postTitle, PostInfo(something else potentially), createdAt, updatedAt
 CommentSchema : postedByUsername, commentBody, createdAt, updatedAt
 MediaSchema : mediaAttachedToPostId, Path
 

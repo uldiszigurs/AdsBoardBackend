@@ -41,7 +41,7 @@ const attachMedia = async (req, res) => {
 
 const getPosts = async (req, res) => {
   logger.log('info', 'getPosts: %j', req.body);
-  const posts = await PostModel.getRandomPosts();
+  const posts = await PostModel.getAllPosts();
   res.status(200).send({ payload: posts || [] });
 };
 

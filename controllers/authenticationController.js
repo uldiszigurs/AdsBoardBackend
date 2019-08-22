@@ -18,6 +18,7 @@ const register = async (req, res) => {
 };
 
 const logIn = async (req, res) => {
+  console.log('req.body = ', req.body);
   logger.log('debug', 'logIn: %j', req.body);
   const user = await UserModel.getUserByEmail(req.body.email);
   if (user) {
@@ -34,6 +35,7 @@ const logIn = async (req, res) => {
         { expiresIn: "2h" }, // FIXME: 
       );
       logger.log('info', `Successfully logged in : ${user.username}`);
+      console.log('TOKEN - ', token);
       res.status(200).send({ payload: { message: 'Successfully logged in', token } });
     }
   } else {

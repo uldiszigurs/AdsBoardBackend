@@ -26,6 +26,8 @@ const getUserByName = async username => UserModel.findOne({ username });
 const getUserByEmail = async email => UserModel.findOne({ email });
 const comparePassword = async ({ userPassword, rehashedPassword }) => bcrypt.compare(userPassword, rehashedPassword);
 
+
+//validate - if username/email is already in use
 UserModel.schema
   .path('username')
   .validate(async username => !(await getUserByName(username)), 'User already exists!');

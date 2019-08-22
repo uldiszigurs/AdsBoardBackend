@@ -5,7 +5,7 @@ const logger = require('../utilities/logger')('logController');
 
 const getPostComments = async (req, res) => {
   logger.log('debug', 'getPostComments: %j', req.body);
-  const comments = await CommentModel.getCommentsByPost(req.params.mediaId);
+  const comments = await CommentModel.getCommentsByPostId(req.params.mediaId);
   res.status(200).send({ payload: { comments } });
 };
 
