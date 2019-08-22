@@ -3,7 +3,8 @@ import { createLogger, format, transports } from 'winston';
 Winston is package for logging; Look for transports & levels
 https://www.npmjs.com/package/winston 
 */
-
+//TODO: FIXME: Make this to be able to handle non strings e.g.  logger.log('info', `Successfully added post: ${req.body}`); where req.body = object
+//currently output [object Object];
 const { combine, timestamp, label, printf, colorize, align, splat } = format;
 
 const logsFormat = printf(info => {

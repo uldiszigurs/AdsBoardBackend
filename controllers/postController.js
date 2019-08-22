@@ -6,22 +6,25 @@ import AppError from '../errors/AppError';
 const logger = require('../utilities/logger')('logController');
 
 const addPost = async (req, res) => {
+  const {username, title, description} = req.body;
   try {
   logger.log('debug', 'register: %j', req.body);
   console.log('I WAS EXECUTED, addPost before .save');
   await PostModel.save({
-    username: req.body.username,
-    title: req.body.title,
-    description: req.body.description,
+    username: username,
+    title: title,
+    description: description,
 
   }).catch(error => {
     throw new AppError(error.message, 400);
   });
   logger.log('info', `Successfully added post: ${req.body}`);
+  //logger.log('info', 'Successfully added post: ', req.body);
+  console.log(req.body);
   res.status(200).send({ payload: { message: 'Added post : ', //FIXME: 201
-  username: req.body.username,
-  title: req.body.title,
-  description: req.body.description,} });
+    username: username,
+    title: title,
+    description: description,} });
   }
   catch (error) {
     console.log(error);
