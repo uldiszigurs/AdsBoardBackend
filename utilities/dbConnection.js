@@ -12,7 +12,10 @@ const dbConnection = () => {
     logger.log('error', 'MongoDB connection error. Please make sure MongoDB is running.');
     process.exit();
   });
-  mongoose.connection.once('open', () => logger.log('info', 'MongoDB has been connected.'));
+  mongoose.connection.once('open', () => {
+    logger.log('info', 'MongoDB has been connected.');
+    mongoose.connection.dropCollection('posts');
+  });
 }
 
 export {MongoStore, dbConnection};

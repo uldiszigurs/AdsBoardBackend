@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import * as bcrypt from 'bcrypt'; //used for hashing password, comparing hashes
 
 const PostSchema = new mongoose.Schema({
     username : { type: String, unique: false, required: true },
@@ -7,11 +6,6 @@ const PostSchema = new mongoose.Schema({
     description : { type: String, trim: true, unique: false, required: true },
     },   
     { timestamps: { createdAt: true, updatedAt: true } });
-
-/* 
-
-*/
-
 
 
 const PostModel = mongoose.model('Post', PostSchema);
