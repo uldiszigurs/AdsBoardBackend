@@ -13,7 +13,7 @@ const commentSchema = new mongoose.Schema(
 const CommentModel = mongoose.model('Comment', commentSchema);
 
 const save = async model => new CommentModel(model).save();
-const getCommentsByPostId = async postid => CommentModel.find({ postid });
+const getCommentsByPostId = async (postid) => CommentModel.find({postid});
 
 
 export { save, getCommentsByPostId, commentSchema };

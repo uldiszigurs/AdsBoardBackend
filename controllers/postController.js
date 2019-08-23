@@ -32,16 +32,20 @@ const addPost = async (req, res) => {
     throw new AppError(error.message, 400);
   }
 };
+
+
 const getAllPosts = async (req, res) => {
   logger.log('debug', 'register: %j', req.body);
   const posts = await PostModel.getAllPosts().catch(error => {
     new AppError(error.message, 400);
   });
-  logger.log('info', `Successfully fetched all posts: ${req.body.userName}`);
+  logger.log('info', `Successfully fetched all posts: `);
   res.status(200).send({ payload: { message: 'Fetched all posts : ', 
   posts} });
 }
-const addComment = async (req, res) => {
+
+
+/* const addComment = async (req, res) => {
   try {
   const {username, title, description, category} = req.body;
   logger.log('debug', 'register: %j', req.body);
@@ -53,23 +57,52 @@ const addComment = async (req, res) => {
     category: category
   });
   console.log('savedDocument = ', savedDocument);
-  /* .catch(error => {
-    throw new AppError(error.message, 400);
-  }); */
   logger.log('info', `Successfully added post: ${req.body}`); //FIXME: [object Object] output object as string directly (ATM)
   //logger.log('info', 'Successfully added post: ', req.body);
   console.log(req.body);
   res.status(200).send({ payload: { message: 'Added post : ', //FIXME: 201
     savedDocument} });
-    console.log('req.url :', req.url);
+    console.log('req.url :', req.url); //Lol. url.params.
   }
   catch (error) {
     console.log(error);
     throw new AppError(error.message, 400);
   }
+} */
 
+
+const getPostById = async (req, res) => {
+  try {
+    const _id = req.params.postid;
+    console.log('req.params = ', req.params);
+    const post = await PostModel.getPostById(_id).catch(error => { 
+      new AppError(error.message, 400);
+    });
+    console.log('post', post);
+    res.status(200).send({ payload: { message: 'Fetched post : ', 
+    post} });
+  } catch (error) {
+    console.log('error = ', error);
+  }
+ 
+}
+
+const getPostsByUser = async (req, res) => {
+  try {
+    const username = req.params.postid;
+    console.log('req.params = ', req.params);
+    const posts = await PostModel.getPostsByUser(username).catch(error => { 
+      new AppError(error.message, 400);
+    });
+    console.log('posts : ', posts);
+    res.status(200).send({ payload: { message: 'Fetched posts (by username) : ', 
+    posts} });
+  } catch (error) {
+    console.log('error = ', error);
+  }
 }
 
 
 
-export { addPost, getAllPosts, addComment };
+export { addPost, getAllPosts, getPostById, getPostsByUser };
+//FIXME: addComment export.

@@ -9,7 +9,8 @@ const router = express.Router();
 
 router.post('', asyncMiddleware(postController.addPost));
 router.get('', asyncMiddleware(postController.getAllPosts));
-router.get('/:postid',asyncMiddleware(postController.getPostById));
+router.get('/postid/:postid',asyncMiddleware(postController.getPostById));
+router.get('/users/:username',asyncMiddleware(postController.getPostsByUser));
 //router.get('/:postid',asyncMiddleware(postController.getPostByUser)); //FIXME: /:postid
 router.post('/:postid/comment', asyncMiddleware(postController.addComment));
 router.get('/:postid/comments', asyncMiddleware(postController.getAllCommentsForPost));
