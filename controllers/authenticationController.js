@@ -32,7 +32,7 @@ const logIn = async (req, res) => {
           data: { username: user.username },
         },
         process.env.JWT_SECRET,
-        { expiresIn: "2h" }, // FIXME: 
+        { expiresIn: "50h" }, // FIXME: 
       );
       logger.log('info', `Successfully logged in : ${user.username}`);
       console.log('TOKEN - ', token);

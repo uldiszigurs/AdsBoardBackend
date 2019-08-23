@@ -41,12 +41,35 @@ const getAllPosts = async (req, res) => {
   res.status(200).send({ payload: { message: 'Fetched all posts : ', 
   posts} });
 }
-
-
-
-export { addPost, getAllPosts };
-try {
-  
-} catch (error) {
+const addComment = async (req, res) => {
+  try {
+  const {username, title, description, category} = req.body;
+  logger.log('debug', 'register: %j', req.body);
+  console.log('I WAS EXECUTED, addPost before .save');
+   const savedDocument = await PostModel.save({
+    username: username,
+    title: title,
+    description: description,
+    category: category
+  });
+  console.log('savedDocument = ', savedDocument);
+  /* .catch(error => {
+    throw new AppError(error.message, 400);
+  }); */
+  logger.log('info', `Successfully added post: ${req.body}`); //FIXME: [object Object] output object as string directly (ATM)
+  //logger.log('info', 'Successfully added post: ', req.body);
+  console.log(req.body);
+  res.status(200).send({ payload: { message: 'Added post : ', //FIXME: 201
+    savedDocument} });
+    console.log('req.url :', req.url);
+  }
+  catch (error) {
+    console.log(error);
+    throw new AppError(error.message, 400);
+  }
 
 }
+
+
+
+export { addPost, getAllPosts, addComment };

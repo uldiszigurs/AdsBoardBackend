@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 
 const commentSchema = new mongoose.Schema(
   {
-    message: { type: String, trim: true, unique: false, required: true },
+    postid: { type: String, unique: false, required: true },
     username: { type: String, unique: false, required: true },
-    postId: { type: String, unique: false, required: true },
+    message: { type: String, trim: true, unique: false, required: true },
   },
   { timestamps: true },
 );
@@ -13,6 +13,7 @@ const commentSchema = new mongoose.Schema(
 const CommentModel = mongoose.model('Comment', commentSchema);
 
 const save = async model => new CommentModel(model).save();
-const getCommentsByPostId = async mediaId => CommentModel.find({ mediaId });
+const getCommentsByPostId = async postid => CommentModel.find({ postid });
+
 
 export { save, getCommentsByPostId, commentSchema };

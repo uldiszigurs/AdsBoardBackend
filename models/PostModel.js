@@ -12,10 +12,9 @@ const PostSchema = new mongoose.Schema({
 const PostModel = mongoose.model('Post', PostSchema);
 
 const getPostById = async _id => PostModel.findById({ _id });
-const getPostByUser = async username => PostModel.findOne({ username });
+const getPostByUser = async username => PostModel.find({ "username" : username }); //FIXME: CAREFUL findone -> find
 const save = async model => new PostModel(model).save();
 const getAllPosts = async () => PostModel.find();
-const getPostsByUser = async () => PostModel.find({ _id }); //TODO: careful
 
 
 export { getPostById, getPostByUser, getAllPosts, save, getPostsByUser };
