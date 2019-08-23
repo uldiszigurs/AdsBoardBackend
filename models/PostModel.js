@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
-
+//trim is for whitespace elimination-ish
 const PostSchema = new mongoose.Schema({
     username : { type: String, unique: false, required: true },
     title : { type: String, trim: true, unique: false, required: true },
     description : { type: String, trim: true, unique: false, required: true },
+    category : {type : String, trim: true,  unique: false, required: true, default: 'other'}
     },   
     { timestamps: { createdAt: true, updatedAt: true } });
 

@@ -6,28 +6,30 @@ import AppError from '../errors/AppError';
 const logger = require('../utilities/logger')('logController');
 
 const addPost = async (req, res) => {
-  const {username, title, description} = req.body;
+  const {username, title, description, category} = req.body;
   try {
   logger.log('debug', 'register: %j', req.body);
   console.log('I WAS EXECUTED, addPost before .save');
-  await PostModel.save({
+   const savedDocument = await PostModel.save({
     username: username,
     title: title,
     description: description,
-
-  }).catch(error => {
-    throw new AppError(error.message, 400);
+    category: category
   });
-  logger.log('info', `Successfully added post: ${req.body}`);
+  console.log('savedDocument = ', savedDocument);
+  /* .catch(error => {
+    throw new AppError(error.message, 400);
+  }); */
+  logger.log('info', `Successfully added post: ${req.body}`); //FIXME: [object Object] output object as string directly (ATM)
   //logger.log('info', 'Successfully added post: ', req.body);
   console.log(req.body);
   res.status(200).send({ payload: { message: 'Added post : ', //FIXME: 201
-    username: username,
-    title: title,
-    description: description,} });
+    savedDocument} });
+    console.log('req.url :', req.url);
   }
   catch (error) {
     console.log(error);
+    throw new AppError(error.message, 400);
   }
 };
 const getAllPosts = async (req, res) => {
@@ -35,10 +37,12 @@ const getAllPosts = async (req, res) => {
   const posts = await PostModel.getAllPosts().catch(error => {
     new AppError(error.message, 400);
   });
-  logger.log('info', `Successfully fetched: ${req.body.userName}`);
-  res.status(200).send({ payload: { message: 'Fetched posts : ', 
+  logger.log('info', `Successfully fetched all posts: ${req.body.userName}`);
+  res.status(200).send({ payload: { message: 'Fetched all posts : ', 
   posts} });
 }
+
+
 
 export { addPost, getAllPosts };
 try {
