@@ -79,7 +79,7 @@ const getPostById = async (req, res) => {
       new AppError(error.message, 400);
     });
     console.log('post', post);
-    res.status(200).send({ payload: { message: 'Fetched post : ', 
+    res.status(200).send({ payload: { message: 'Fetched post (by _Id): ', 
     post} });
   } catch (error) {
     console.log('error = ', error);
@@ -89,7 +89,7 @@ const getPostById = async (req, res) => {
 
 const getPostsByUser = async (req, res) => {
   try {
-    const username = req.params.postid;
+    const username = req.params.username;
     console.log('req.params = ', req.params);
     const posts = await PostModel.getPostsByUser(username).catch(error => { 
       new AppError(error.message, 400);

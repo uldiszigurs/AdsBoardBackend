@@ -14,6 +14,9 @@ const CommentModel = mongoose.model('Comment', commentSchema);
 
 const save = async model => new CommentModel(model).save();
 const getCommentsByPostId = async (postid) => CommentModel.find({postid});
+const getCommentById = async (_id) => CommentModel.find({_id});
 
 
-export { save, getCommentsByPostId, commentSchema };
+
+
+export { save, getCommentsByPostId, commentSchema, getCommentById};

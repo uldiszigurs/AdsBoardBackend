@@ -12,6 +12,9 @@ import postRouter from './routes/post';
 import { dbConnection, MongoStore } from './utilities/dbConnection';
 const logger = require('./utilities/logger')('server');
 
+/* 
+TODO: use _id to search user content not username
+*/
 
 
 const app = express();
