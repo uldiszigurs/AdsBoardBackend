@@ -4,27 +4,11 @@ import { UPLOAD_FOLDER } from '../consts/webConsts';
 
 const logger = require('../utilities/logger')('logController');
 
-const addPosts = async (req, res) => {
-  logger.log('info', 'addPosts: %j', req.body);
-  const { user } = req;
-  const { path } = await MediaModel.getMediaById(req.body.contentId);
-  const post = await PostModel.save({
-    title: req.body.caption,
-    username: user.username,
-    media: {
-      path,
-      contentId: req.body.contentId,
-    },
-  });
-  res.status(200).send({ payload: post });
-};
-
 const attachMedia = async (req, res) => {
   logger.log('info', 'attachMedia: %j', req.body);
+  console.log('req = ',req);
   const { user } = req;
-  const {
-    file: { filename },
-  } = req;
+  const { file: { filename } } = req;
 
   const media = await MediaModel.save({
     username: user.username,
@@ -39,16 +23,5 @@ const attachMedia = async (req, res) => {
   });
 };
 
-const getPosts = async (req, res) => {
-  logger.log('info', 'getPosts: %j', req.body);
-  const posts = await PostModel.getAllPosts();
-  res.status(200).send({ payload: posts || [] });
-};
 
-const getPostById = async (req, res) => {
-  logger.log('info', 'getPostById: %j', req.body);
-  const post = await PostModel.getPostById(req.params.mediaId);
-  res.status(200).send({ payload: post });
-};
-
-export { getPosts, addPosts, attachMedia, getPostById };
+export { attachMedia };

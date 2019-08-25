@@ -2,3 +2,4 @@ node_modules
 .ENV
 /logs
 .log
+/uploads/images/*

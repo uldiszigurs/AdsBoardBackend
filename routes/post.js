@@ -4,7 +4,7 @@ import asyncMiddleware from '../middlewares/asyncMiddleware';
 import { diskStorageSingle } from '../middlewares/diskStorage';
 import * as postController from '../controllers/postController';
 import * as commentController from '../controllers/commentController';
-
+import * as mediaController from '../controllers/mediaController';
 const router = express.Router();
 
 
@@ -15,6 +15,9 @@ router.get('/comments/:postid', asyncMiddleware(commentController.getCommentsByP
 router.get('/comment/:commentid', asyncMiddleware(commentController.getCommentById));
 router.post('', asyncMiddleware(postController.addPost));
 router.get('', asyncMiddleware(postController.getAllPosts));
+router.post('/media/:postid', diskStorageSingle, asyncMiddleware(mediaController.attachMedia));
+router.get('/media/:postid', asyncMiddleware(mediaController.getmediaById));
+router.get('/media', asyncMiddleware(mediaController.getAllmedia));
 
 //TODO: Should not be able to add comment to non existing post. 
 
