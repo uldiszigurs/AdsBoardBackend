@@ -38,7 +38,7 @@ app.use(
 );
 
 app.use(`/api/v${process.env.API_VERSION}/authentication`, authenticationRouter);
-app.use(`/api/v${process.env.API_VERSION}/post`, authenticate, postRouter)
+app.use(`/api/v${process.env.API_VERSION}/post`, postRouter)
 
 
 //app.use(`/api/v${process.env.API_VERSION}/media`, authenticate, media);

@@ -5,11 +5,12 @@ import { diskStorageSingle } from '../middlewares/diskStorage';
 import * as postController from '../controllers/postController';
 import * as commentController from '../controllers/commentController';
 import * as mediaController from '../controllers/mediaController';
+import authenticate from '../middlewares/authenticate';
 const router = express.Router();
 
 
 router.get('/postid/:postid',asyncMiddleware(postController.getPostById));
-router.get('/users/:username',asyncMiddleware(postController.getPostsByUser));
+router.get('/users/:username', authenticate, asyncMiddleware(postController.getPostsByUser));
 router.post('/comments/:postid', asyncMiddleware(commentController.addComment));
 router.get('/comments/:postid', asyncMiddleware(commentController.getCommentsByPostId));
 router.get('/comment/:commentid', asyncMiddleware(commentController.getCommentById));
