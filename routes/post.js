@@ -10,7 +10,7 @@ const router = express.Router();
 
 
 router.get('/postid/:postid',asyncMiddleware(postController.getPostById));
-router.get('/users/:username', authenticate, asyncMiddleware(postController.getPostsByUser));
+router.get('/users/:username', authenticate, asyncMiddleware(postController.getPostsByUser)); //PRIVATE ROUTE
 router.post('/comments/:postid', asyncMiddleware(commentController.addComment));
 router.get('/comments/:postid', asyncMiddleware(commentController.getCommentsByPostId));
 router.get('/comment/:commentid', asyncMiddleware(commentController.getCommentById));
