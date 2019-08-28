@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const mediaSchema = new mongoose.Schema(
   {
+    postid: { type: String, unique: false, required: true },
     username: { type: String, unique: false, required: true },
     path: { type: String, unique: true, required: true },
   },

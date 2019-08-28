@@ -16,8 +16,8 @@ router.get('/comments/:postid', asyncMiddleware(commentController.getCommentsByP
 router.get('/comment/:commentid', asyncMiddleware(commentController.getCommentById));
 router.post('', asyncMiddleware(postController.addPost));
 router.get('', asyncMiddleware(postController.getAllPosts));
-router.post('/media/:postid', diskStorageSingle, asyncMiddleware(mediaController.attachMedia));
-router.get('/media/:postid', asyncMiddleware(mediaController.getmediaById));
+router.post('/:postid/media', diskStorageSingle, asyncMiddleware(mediaController.attachMedia));
+router.get('/:postid/media/', asyncMiddleware(mediaController.getmediaById)); //FIXME: CAREFUL
 router.get('/media', asyncMiddleware(mediaController.getAllmedia));
 
 //TODO: Should not be able to add comment to non existing post. 
