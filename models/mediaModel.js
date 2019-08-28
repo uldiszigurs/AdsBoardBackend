@@ -14,5 +14,7 @@ const MediaModel = mongoose.model('Media', mediaSchema);
 const save = async model => new MediaModel(model).save();
 const getMediaById = async id => MediaModel.findOne({ _id: id});
 const getMediaByUser = async userName => MediaModel.findOne({ userName });
+const getMediaByPostId = async postid => MediaModel.findOne({ postid });
 
-export { save, getMediaById, getMediaByUser, mediaSchema };
+
+export { save, getMediaById, getMediaByUser, mediaSchema, getMediaByPostId };
