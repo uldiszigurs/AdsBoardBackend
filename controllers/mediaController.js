@@ -6,15 +6,14 @@ const logger = require('../utilities/logger')('logController');
 
 const attachMedia = async (req, res) => {
   //logger.log('info', 'attachMedia: %j', req.url);
-  console.log('req = ',req);
-  const { reqBody } = req;
-  console.log('reqBody = ',reqBody);
-  const { file: { filename } } = req;
-  console.log('file.filename = ', file.filename);
-  console.log('FILENAME ====================================', filename);
+  const filename = req.file.filename;
+  console.log('FILENAME ====================================', req.file.filename);
+  console.log('req.username = ', req.username);
+  console.log('req.params.postid = ', req.params.postid)
+  console.log('req ====================================================================================== ', req);
   const media = await MediaModel.save({
-    postId: req.params.postid,
-    username: reqBody.username,
+    postid: req.params.postid,
+    username: req.body.username,
     path: `/${UPLOAD_FOLDER}/${filename}`,
   });
 
