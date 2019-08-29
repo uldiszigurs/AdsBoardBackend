@@ -36,7 +36,7 @@ const logIn = async (req, res) => {
       );
       logger.log('info', `Successfully logged in : ${user.username}`);
       console.log('TOKEN - ', token);
-      res.status(200).send({ payload: { message: 'Successfully logged in', token } });
+      res.status(200).send({ payload: { message: 'Successfully logged in', token , username : user.username } });
     }
   } else {
     logger.log('debug', 'Login failed');
