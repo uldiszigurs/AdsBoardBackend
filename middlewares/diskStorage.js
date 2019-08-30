@@ -10,11 +10,11 @@ const storage = multer.diskStorage({
     const pathToDir = path.join(__dirname, `../${UPLOAD_FOLDER}`);
     await fsHandler.createFolderIfNotExists(pathToDir);
     cb(null, pathToDir);
-    console.log('pathToDir = ',pathToDir);
+    //console.log('pathToDir = ',pathToDir);
   },
   filename(req, file, cb) {
     cb(null, `${Date.now()}_${file.originalname}`);
-    console.log('File = ', file, 'file.originalname = ', file.originalname);
+    //console.log('File = ', file, 'file.originalname = ', file.originalname);
   },
 });
 const upload = multer({ storage });

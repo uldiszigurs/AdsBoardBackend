@@ -19,7 +19,7 @@ const authenticate = async (req, res, next) => {
   } */
 
   const { authorization } = req.headers;
-  console.log('authorization = ', authorization);
+  //console.log('authorization = ', authorization);
   let token;
   if (authorization) {
     [, token] = authorization.split(' ');

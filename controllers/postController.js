@@ -9,26 +9,18 @@ const addPost = async (req, res) => {
   const {username, title, description, category} = req.body;
   try {
   logger.log('debug', 'register: %j', req.body);
-  console.log('I WAS EXECUTED, addPost before .save');
    const savedDocument = await PostModel.save({
     username: username,
     title: title,
     description: description,
     category: category
   });
-  console.log('savedDocument = ', savedDocument);
-  /* .catch(error => {
-    throw new AppError(error.message, 400);
-  }); */
+
   logger.log('info', `Successfully added post: ${req.body}`); //FIXME: [object Object] output object as string directly (ATM)
-  //logger.log('info', 'Successfully added post: ', req.body);
-  console.log(req.body);
   res.status(201).send({ payload: { message: 'Added post : ', //FIXME: 201
     savedDocument} });
-    console.log('req.url :', req.url);
   }
   catch (error) {
-    console.log(error);
     throw new AppError(error.message, 400);
   }
 };
@@ -74,7 +66,7 @@ const getAllPosts = async (req, res) => {
 const getPostById = async (req, res) => {
   try {
     const _id = req.params.postid;
-    console.log('req.params = ', req.params);
+    //console.log('req.params = ', req.params);
     const post = await PostModel.getPostById(_id).catch(error => { 
       new AppError(error.message, 400);
     });
