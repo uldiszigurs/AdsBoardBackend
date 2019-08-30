@@ -16,6 +16,7 @@ router.get('/comments/:postid', asyncMiddleware(commentController.getCommentsByP
 router.get('/comment/:commentid', asyncMiddleware(commentController.getCommentById));
 router.post('', asyncMiddleware(postController.addPost));
 router.get('', asyncMiddleware(postController.getAllPosts));
+router.get('/category/:category', asyncMiddleware(postController.getPostsByCategory));
 router.post('/:postid/media', diskStorageSingle, asyncMiddleware(mediaController.attachMedia));
 router.get('/:postid/media/', asyncMiddleware(mediaController.getMediaByPostId)); //FIXME: CAREFUL
 router.get('/media', asyncMiddleware(mediaController.getAllmedia));

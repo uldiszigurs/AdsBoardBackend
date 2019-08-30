@@ -23,7 +23,7 @@ const addPost = async (req, res) => {
   logger.log('info', `Successfully added post: ${req.body}`); //FIXME: [object Object] output object as string directly (ATM)
   //logger.log('info', 'Successfully added post: ', req.body);
   console.log(req.body);
-  res.status(200).send({ payload: { message: 'Added post : ', //FIXME: 201
+  res.status(201).send({ payload: { message: 'Added post : ', //FIXME: 201
     savedDocument} });
     console.log('req.url :', req.url);
   }
@@ -78,11 +78,10 @@ const getPostById = async (req, res) => {
     const post = await PostModel.getPostById(_id).catch(error => { 
       new AppError(error.message, 400);
     });
-    console.log('post', post);
     res.status(200).send({ payload: { message: 'Fetched post (by _Id): ', 
     post} });
   } catch (error) {
-    console.log('error = ', error);
+    throw new AppError(error.message, 400);
   }
  
 }
@@ -90,19 +89,31 @@ const getPostById = async (req, res) => {
 const getPostsByUser = async (req, res) => {
   try {
     const username = req.params.username;
-    console.log('req.params = ', req.params);
     const posts = await PostModel.getPostsByUser(username).catch(error => { 
       new AppError(error.message, 400);
     });
-    console.log('posts : ', posts);
     res.status(200).send({ payload: { message: 'Fetched posts (by username) : ', 
     posts} });
   } catch (error) {
-    console.log('error = ', error);
+    throw new AppError(error.message, 400);
+  }
+}
+const getPostsByCategory = async (req, res) => {
+  try {
+    const category = req.params.category;
+    const posts = await PostModel.getPostsByCategory(category).catch(error => { 
+      new AppError(error.message, 400);
+    });
+
+    res.status(200).send({ payload: { message: 'Fetched post (by category): ', 
+    posts} });
+  } catch (error) {
+      throw new AppError(error.message, 400);
   }
 }
 
 
 
-export { addPost, getAllPosts, getPostById, getPostsByUser };
+
+export { addPost, getAllPosts, getPostById, getPostsByUser, getPostsByCategory };
 //FIXME: addComment export.

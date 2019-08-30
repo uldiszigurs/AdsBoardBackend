@@ -14,11 +14,10 @@ const register = async (req, res) => {
     throw new AppError(error.message, 400);
   });
   logger.log('info', `Successfully registered: ${req.body.userName}`);
-  res.status(200).send({ payload: { message: 'Successfully registered'} });
+  res.status(201).send({ payload: { message: 'Successfully registered'} });
 };
 
 const logIn = async (req, res) => {
-  console.log('req.body = ', req.body);
   logger.log('debug', 'logIn: %j', req.body);
   const user = await UserModel.getUserByEmail(req.body.email);
   if (user) {
@@ -32,10 +31,9 @@ const logIn = async (req, res) => {
           data: { username: user.username },
         },
         process.env.JWT_SECRET,
-        { expiresIn: "50h" }, // FIXME: 
+        { expiresIn: "50h" }, 
       );
       logger.log('info', `Successfully logged in : ${user.username}`);
-      console.log('TOKEN - ', token);
       res.status(200).send({ payload: { message: 'Successfully logged in', token , username : user.username } });
     }
   } else {

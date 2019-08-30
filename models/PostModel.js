@@ -14,9 +14,10 @@ const PostModel = mongoose.model('Post', PostSchema);
 
 const getPostById = async _id => PostModel.findById({ _id }); //CAREFUL! PROVIDE STRING.
 const getPostsByUser = async username => PostModel.find({ username }); //FIXME: CAREFUL! PROVIDE STRING.
+const getPostsByCategory = async category => PostModel.find({category });
 const save = async model => new PostModel(model).save();
 const getAllPosts = async () => PostModel.find();
 
 
 
-export { getPostById, getPostsByUser, getAllPosts, save};
+export { getPostById, getPostsByUser, getAllPosts, save, getPostsByCategory};
