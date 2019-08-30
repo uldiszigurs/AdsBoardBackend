@@ -1,4 +1,6 @@
 # AdsBoardBackend
+This is backend for https://github.com/uldiszigurs/AdsBoardFrontend
+
 How to run : 
 npm install
 npm run dev
@@ -8,4 +10,10 @@ Issues :
 - sending actual image (can get path for media though)
 
 
-All other paths 
+## TODO: 
+- merge schemas who share same info, e.g. comment & media are both bound to postId 
+- add update & delete methods for comments & posts
+- add whitelist for category names
+- add additional event handler which scans post body for category, save category name in array
+- add category list endpoint
+- if merged schemas, change url paths to be more appropriate (for the payload to expect)
