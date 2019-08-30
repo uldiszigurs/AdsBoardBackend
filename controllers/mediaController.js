@@ -27,7 +27,7 @@ const attachMedia = async (req, res) => {
 };
 
 const getMediaByPostId = async (req, res) => {
-console.log('req.params.postid = ', req.params.postid)
+//console.log('req.params.postid = ', req.params.postid)
 const media = await MediaModel.getMediaByPostId(req.params.postid);
 res.status(200).send({
   payload: {
