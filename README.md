@@ -1,6 +1,8 @@
 # AdsBoardBackend
 This is backend for https://github.com/uldiszigurs/AdsBoardFrontend
 
+Postman collection : https://www.getpostman.com/collections/bed7497c4fd0e8bdebdd
+
 How to run : 
 npm install
 npm run dev
