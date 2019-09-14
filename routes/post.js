@@ -19,7 +19,7 @@ router.post('/:postid/media', diskStorageSingle, asyncMiddleware(mediaController
 router.get('/:postid/media/', asyncMiddleware(mediaController.getMediaByPostId)); //FIXME: CAREFUL
 router.get('/category/:category', asyncMiddleware(postController.getPostsByCategory));
 router.get('/media', asyncMiddleware(mediaController.getAllmedia));
-router.post('', asyncMiddleware(postController.addPost));
+router.post('', asyncMiddleware(postController.addPost), asyncMiddleware(categoryController.updateCategoryList));
 router.get('', asyncMiddleware(postController.getAllPosts));
 
 
