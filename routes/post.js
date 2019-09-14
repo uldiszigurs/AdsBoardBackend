@@ -5,6 +5,7 @@ import { diskStorageSingle } from '../middlewares/diskStorage';
 import * as postController from '../controllers/postController';
 import * as commentController from '../controllers/commentController';
 import * as mediaController from '../controllers/mediaController';
+import * as categoryController from '../controllers/categoryController';
 import authenticate from '../middlewares/authenticate';
 const router = express.Router();
 
