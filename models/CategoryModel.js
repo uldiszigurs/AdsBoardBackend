@@ -11,7 +11,7 @@ const categorySchema = new mongoose.Schema(
 const CategoryModel = mongoose.model('Category', categorySchema);
 
 const save = async model => new CategoryModel(model).save();
-const getCategoryList = async () => CategoryModel.findOne();
+const getCategoryList = async () => CategoryModel.findOne(); //FIXME: if conditions is null or undefined, mongoose will send an empty findOne command to MongoDB, which will return an arbitrary document
 
 
 export { save, getCategoryList, categorySchema};

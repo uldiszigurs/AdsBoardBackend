@@ -1,6 +1,6 @@
 //import * as MediaModel from '../models/MediaModel';
 import * as PostModel from '../models/PostModel';
-import * as CategoryModel from 'models/CategoryModel';
+import * as CategoryModel from '../models/CategoryModel';
 //import { UPLOAD_FOLDER } from '../consts/webConsts';
 import AppError from '../errors/AppError';
 
@@ -16,7 +16,7 @@ const addPost = async (req, res) => {
     description: description,
     category: category
   });
-  logger.log('info', `Successfully added post: ${req.body}`); //FIXME: [object Object] output object as string directly (ATM)
+  logger.log('info', `Successfully added post with _id : ${savedDocument._id}`);
   res.status(201).send({ payload: { message: 'Added post : ',
     savedDocument} });
   }

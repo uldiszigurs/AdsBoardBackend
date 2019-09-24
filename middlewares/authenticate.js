@@ -11,23 +11,21 @@ const jsonWebTokenValidate = token =>
     });
   });
 
-const authenticate = async (req, res, next) => {
-  // TODO: Remove, used for dev purposes
-  /* if (process.env.SKIP_AUTH) {
-    console.log('AUTHENTICATE SKIPPED! Check authenticate middleware, .ENV')
-    return next();
-  } */
 
+const authenticate = async (req, res, next) => {
   const { authorization } = req.headers;
+  //console.log('typeof(req.headers) = ', typeof(req.headers));
+  //console.log('req.headers list = ',Object.keys(req.headers));
   //console.log('authorization = ', authorization);
+  //console.log('typeof(authenication) = ', typeof(authorization));
   let token;
   if (authorization) {
-    [, token] = authorization.split(' ');
+    console.log('authorization = ', authorization);
+    [, token] = authorization.split(' '); //because authorization header has [Bearer ] prefix before the actual token
   }
 
   if (token) {
     const decodedToken = await jsonWebTokenValidate(token);
-
     if (decodedToken && decodedToken.data && decodedToken.data.username) {
       const { username } = decodedToken.data;
       const user = await getUserByName(username);
