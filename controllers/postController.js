@@ -17,8 +17,7 @@ const addPost = async (req, res) => {
     category: category
   });
   logger.log('info', `Successfully added post with _id : ${savedDocument._id}`);
-  res.status(201).send({ payload: { message: 'Added post : ',
-    savedDocument} });
+  return savedDocument;
   }
   catch (error) {
     throw new AppError(error.message, 400);
@@ -31,8 +30,6 @@ const getAllPosts = async (req, res) => {
     new AppError(error.message, 400);
   });
   logger.log('info', `Successfully fetched all posts: `);
-  res.status(200).send({ payload: { message: 'Fetched all posts : ', 
-  posts} });
 }
 
 const getPostById = async (req, res) => {
@@ -42,8 +39,7 @@ const getPostById = async (req, res) => {
     const post = await PostModel.getPostById(_id).catch(error => { 
       new AppError(error.message, 400);
     });
-    res.status(200).send({ payload: { message: 'Fetched post (by _Id): ', 
-    post} });
+    return post;
   } catch (error) {
     throw new AppError(error.message, 400);
   }
@@ -56,8 +52,7 @@ const getPostsByUser = async (req, res) => {
     const posts = await PostModel.getPostsByUser(username).catch(error => { 
       new AppError(error.message, 400);
     });
-    res.status(200).send({ payload: { message: 'Fetched posts (by username) : ', 
-    posts} });
+    return posts;
   } catch (error) {
     throw new AppError(error.message, 400);
   }
@@ -69,15 +64,11 @@ const getPostsByCategory = async (req, res) => {
     const posts = await PostModel.getPostsByCategory(category).catch(error => { 
       new AppError(error.message, 400);
     });
-
-    res.status(200).send({ payload: { message: 'Fetched post (by category): ', 
-    posts} });
+    return posts;
   } catch (error) {
       throw new AppError(error.message, 400);
   }
 }
-
-
 
 
 export { addPost, getAllPosts, getPostById, getPostsByUser, getPostsByCategory };
