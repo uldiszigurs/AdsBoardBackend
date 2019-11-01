@@ -1,5 +1,6 @@
 import * as CommentModel from '../models/CommentModel';
 import AppError from '../errors/AppError';
+import * as PostModel from '../models/PostModel';
 
 const logger = require('../utilities/logger')('logController');
 
@@ -23,6 +24,7 @@ const getCommentById = async (req, res) => {
 
 const addComment = async (req, res) => {
   logger.log('debug', 'addComment: %j', req.body);
+  const postById = await PostModel.getPostById
   const comment = await CommentModel.save({
     postid: req.params.postid,
     username: req.body.username,

@@ -1,16 +1,19 @@
-//this function is to handle multiple controllers for a single path, since middlewares should not access 
-//the database (AFAIK) this will chain multiple controllers, if one fails, the one after fails too.
-
+//by default it will return first controller's response.
   const controllerWrapper = (...functions) => async (request, response, error) => {
-      try {
-        const length = functions.length;
+      try { //TODO: Add validation to controllers
+        const defualtReturn = 0;
+        let returnResult;
+        const length = functions.length; //amount of arguments provided
         const results = [];
         console.dir(functions);
         for (let i = 0; i < length; ++i) {
             const result = await functions[i](request, response);
-            console.log({['result'+i]: result});
-            if (i === length -1) { //last function's response gets sent
-                response.status(200).send({ payload: {savedDocument : result} });
+            console.log({['result' + i]: result});
+            if (i === defualtReturn) {
+              returnResult = result;
+            }
+            if (i === (length - 1)) { //last function's response gets sent
+                response.status(200).send({ payload: {savedDocument : returnResult} });
             }
             
     }
@@ -23,6 +26,3 @@
   };
 
 export default controllerWrapper;
-
-// 1+ controllers
-//last controller's return value gets sent

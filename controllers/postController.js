@@ -35,10 +35,11 @@ const getAllPosts = async (req, res) => {
 const getPostById = async (req, res) => {
   try {
     const _id = req.params.postid;
-    //console.log('req.params = ', req.params);
+    console.log('req.params = ', req.params);
     const post = await PostModel.getPostById(_id).catch(error => { 
       new AppError(error.message, 400);
     });
+    console.log('post - ', post);
     return post;
   } catch (error) {
     throw new AppError(error.message, 400);

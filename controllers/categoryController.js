@@ -10,7 +10,6 @@ const getCategoryList = async (req, res) => {
     const categoryList = await CategoryModel.getCategoryList().catch(error => {
      new AppError(error.message, 400);
     });
-    console.dir(categoryList);
     logger.log('info', `Successfully fetched categoryList: `);
     res.status(200).send({ payload: { message: 'Fetched categoryList : ', 
     categoryList} });
@@ -26,7 +25,6 @@ const updateCategoryList = async (req, res) => {
      const categoryDocument = await CategoryModel.getCategoryList().catch(error => {
       new AppError(error.message, 400);
     });
-    console.log('categoryDocument - ', categoryDocument );
 
     if (categoryDocument instanceof Array) { 
       const filterResult = categoryDocument.filter((categoryItem) => { //check how many times provided category is in the DB
@@ -51,30 +49,11 @@ const updateCategoryList = async (req, res) => {
 
     console.log(category);
     
-    throw new Error (`categoryDocument is not instance of Array`);
+    throw new Error (`categoryDocument is not an instance of Array`);
   } catch(error) {
     console.log(error);
   }
  
 }
-
-/* 
-if(categoryDocument != null) {
-      const categoryList = categoryDocument[0].categoryList;
-      if (!categoryList === []) {
-        if (!checkForOccurrences(categoryList, category)) {
-          categoryList.push(category);
-          const newCategoryList = await CategoryModel.save({_id : categoryDocument[0]._id,
-          categoryList : newCategoryList});
-          return newCategoryList;
-      } 
-      
-    }
-    logger.log('info', `Successfully fetched categoryList: ${categoryList}`);
-    } else {
-      const newCategoryList = await CategoryModel.save({
-        categoryList : });
-    }
-*/
 
 export { getCategoryList, updateCategoryList };
