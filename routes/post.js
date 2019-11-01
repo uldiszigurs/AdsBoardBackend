@@ -7,7 +7,7 @@ import * as commentController from '../controllers/commentController';
 import * as mediaController from '../controllers/mediaController';
 import * as categoryController from '../controllers/categoryController';
 import authenticate from '../middlewares/authenticate';
-import ControllerWrapper from '../utilities/ControllerWrapper';
+import controllerWrapper from '../utilities/controllerWrapper';
 const router = express.Router();
 
 
@@ -20,7 +20,7 @@ router.post('/:postid/media', diskStorageSingle, asyncMiddleware(mediaController
 router.get('/:postid/media/', asyncMiddleware(mediaController.getMediaByPostId)); //FIXME: CAREFUL
 router.get('/category/:category', asyncMiddleware(postController.getPostsByCategory));
 router.get('/media', asyncMiddleware(mediaController.getAllmedia));
-router.post('', ControllerWrapper(postController.addPost, categoryController.updateCategoryList));
+router.post('', controllerWrapper(postController.addPost, categoryController.updateCategoryList));
 router.get('', asyncMiddleware(postController.getAllPosts));
 
 
