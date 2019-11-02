@@ -6,7 +6,7 @@ const logger = require('../utilities/logger')('logInController');
 
 const register = async (req, res) => {
   logger.log('debug', 'register: %j', req.body);
-  await UserModel.save({
+  const registeredUser = await UserModel.save({
     username: req.body.username,
     email: req.body.email,
     rehashedPassword: req.body.rehashedPassword,
@@ -14,10 +14,10 @@ const register = async (req, res) => {
     throw new AppError(error.message, 400);
   });
   logger.log('info', `Successfully registered: ${req.body.userName}`);
-  res.status(201).send({ payload: { message: 'Successfully registered'} });
+  return registeredUser;
 };
 
-const logIn = async (req, res) => {
+const logIn = async (req, res) => { //need to be dealt with TODO: FIXME:
   logger.log('debug', 'logIn: %j', req.body);
   const user = await UserModel.getUserByEmail(req.body.email);
   if (user) {

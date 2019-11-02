@@ -1,6 +1,5 @@
 //import * as MediaModel from '../models/MediaModel';
 import * as PostModel from '../models/PostModel';
-import * as CategoryModel from '../models/CategoryModel';
 //import { UPLOAD_FOLDER } from '../consts/webConsts';
 import AppError from '../errors/AppError';
 
@@ -30,6 +29,7 @@ const getAllPosts = async (req, res) => {
     new AppError(error.message, 400);
   });
   logger.log('info', `Successfully fetched all posts: `);
+  return posts;
 }
 
 const getPostById = async (req, res) => {

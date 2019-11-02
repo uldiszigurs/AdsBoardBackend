@@ -9,8 +9,7 @@ const getCommentsByPostId = async (req, res) => {
   const comments = await CommentModel.getCommentsByPostId(req.params.postid).catch(error => { 
     new AppError(error.message, 400);
   });
-  res.status(200).send({message : "Fetched all comments by post id : ", 
-  payload: { comments } });
+  return comments;
 };
 
 const getCommentById = async (req, res) => {
@@ -18,22 +17,25 @@ const getCommentById = async (req, res) => {
   const comment = await CommentModel.getCommentById(req.params.commentid).catch(error => { 
     new AppError(error.message, 400);
   });
-  res.status(200).send({message : "Fetched comment by id : ", 
-  payload: { comment } });
+  return comment;
 };
 
 const addComment = async (req, res) => {
   logger.log('debug', 'addComment: %j', req.body);
-  const postById = await PostModel.getPostById
-  const comment = await CommentModel.save({
-    postid: req.params.postid,
-    username: req.body.username,
-    message: req.body.message,
-  }).catch(error => {
-    throw new AppError(error.message, 400);
-  });
-  res.status(201).send({message : "Added comment to post : ",
-  payload: { comment }});
+  const postById = await PostModel.getPostById(req.params.postid);
+  if (postById != null) { //return 201 code.
+    const comment = await CommentModel.save({
+      postid: req.params.postid,
+      username: req.body.username,
+      message: req.body.message,
+    }).catch(error => {
+      throw new AppError(error.message, 400);
+    });
+    return comment;
+  } else { //return 403 for denied access because the main resource doesn't exist / 400 + custom message 
+
+  }
+  
 };
 
 export { getCommentsByPostId, addComment, getCommentById };

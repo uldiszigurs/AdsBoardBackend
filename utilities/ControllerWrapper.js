@@ -1,4 +1,5 @@
 //by default it will return first controller's response.
+//TODO: http status codes
   const controllerWrapper = (...functions) => async (request, response, error) => {
       try { //TODO: Add validation to controllers
         const defualtReturn = 0;
