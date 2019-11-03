@@ -24,7 +24,7 @@ const addPost = async (req, res) => {
 };
 
 const getAllPosts = async (req, res) => {
-  logger.log('debug', 'register: %j', req.body);
+  //logger.log('debug', 'register: %j', req.body);
   const posts = await PostModel.getAllPosts().catch(error => {
     new AppError(error.message, 400);
   });
@@ -70,7 +70,25 @@ const getPostsByCategory = async (req, res) => {
       throw new AppError(error.message, 400);
   }
 }
+const updatePost = async (req, res) => {
+  try {
+    console.log(req.body);
+    const {username, title, description, category} = req.body;
+    const postId = req.params.postid;
+    const post = await PostModel.updatePostById(postId, {
+      username, 
+      title, 
+      description, 
+      category
+    }).catch(error => { 
+      new AppError(error.message, 400);
+    });
+    logger.log('info', `Successfully updated post with _id : ${postId}`);
+    return post;
+  } catch(error) {
+    throw new AppError(error.message, 400);
+  }
+}
 
 
-export { addPost, getAllPosts, getPostById, getPostsByUser, getPostsByCategory };
-//FIXME: addComment export.
+export { addPost, getAllPosts, getPostById, getPostsByUser, getPostsByCategory, updatePost };

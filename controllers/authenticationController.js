@@ -34,7 +34,7 @@ const logIn = async (req, res) => { //need to be dealt with TODO: FIXME:
         { expiresIn: "50h" }, 
       );
       logger.log('info', `Successfully logged in : ${user.username}`);
-      res.status(200).send({ payload: { message: 'Successfully logged in', token , username : user.username } });
+      return token;
     }
   } else {
     logger.log('debug', 'Login failed');
