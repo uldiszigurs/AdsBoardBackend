@@ -19,8 +19,11 @@ const controllerWrapper = (...functions) => async (request, response, error) => 
                 ${functions[i]} is not a function!`);
             }
             const result = await functions[i](request, response);
-            console.log({[`result${i}`]: result});
-            if (i === defualtReturn) {
+            console.log({[`result${i}`]: result}); //debugging
+            if(result instanceof Object && Object.prototype.hasOwnProperty.call(result, 'error')) {
+                statusCode = 400;
+            }
+            if (i === defualtReturn) { //set the return value based on default / provided variable defaultReturn
               returnResult = result;
             }
             if (i === (length - 1)) {
