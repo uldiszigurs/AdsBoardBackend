@@ -5,19 +5,25 @@ import * as UserModel from '../models/UserModel';
 const logger = require('../utilities/logger')('logInController');
 
 const register = async (req, res) => {
+  let error;
   logger.log('debug', 'register: %j', req.body);
   const registeredUser = await UserModel.save({
     username: req.body.username,
     email: req.body.email,
     rehashedPassword: req.body.rehashedPassword,
-  }).catch(error => {
-    throw new AppError(error.message, 400);
+  }).catch(catchedError => {
+    error = catchedError;
+    //throw new AppError(error.message, 400); should log error and return it to client rather than crashing
   });
-  logger.log('info', `Successfully registered: ${req.body.userName}`);
-  return registeredUser;
+  logger.log('info', `Successfully registered: ${registeredUser.username}`);
+  return {
+    data : registeredUser,
+    statusCode: 200, 
+    hasError: error
+  };
 };
 
-const logIn = async (req, res) => { //need to be dealt with TODO: FIXME:
+const logIn = async (req, res) => {
   logger.log('debug', 'logIn: %j', req.body);
   const user = await UserModel.getUserByEmail(req.body.email);
   if (user) {
@@ -34,7 +40,10 @@ const logIn = async (req, res) => { //need to be dealt with TODO: FIXME:
         { expiresIn: "50h" }, 
       );
       logger.log('info', `Successfully logged in : ${user.username}`);
-      return token;
+      return {
+        data : token,
+        statusCode: 200
+      };
     }
   } else {
     logger.log('debug', 'Login failed');

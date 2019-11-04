@@ -9,7 +9,10 @@ const getCommentsByPostId = async (req, res) => {
   const comments = await CommentModel.getCommentsByPostId(req.params.postid).catch(error => { 
     new AppError(error.message, 400);
   });
-  return comments;
+  return {
+    data: comments,
+    statusCode: 200
+  };
 };
 
 const getCommentById = async (req, res) => {
@@ -17,7 +20,10 @@ const getCommentById = async (req, res) => {
   const comment = await CommentModel.getCommentById(req.params.commentid).catch(error => { 
     new AppError(error.message, 400);
   });
-  return comment;
+  return {
+    data: comment,
+    statusCode: 200
+  };
 };
 
 const addComment = async (req, res) => {
@@ -31,7 +37,10 @@ const addComment = async (req, res) => {
     }).catch(error => {
       throw new AppError(error.message, 400);
     });
-    return comment;
+    return {
+      data: comment,
+      statusCode: 200
+    };
   } else { //return 403 for denied access because the main resource doesn't exist / 400 + custom message 
 
   }

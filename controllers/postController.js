@@ -4,6 +4,11 @@ import * as PostModel from '../models/PostModel';
 import AppError from '../errors/AppError';
 
 const logger = require('../utilities/logger')('logController');
+//if failed .get request return 500 (internal server error)
+//if failed .post request return 403 (forbidden) | 500 (internal server error) if failed
+//if successful .post return 201
+//if successful .put return 200
+//if successful .delete return 200
 
 const addPost = async (req, res) => {
   const {username, title, description, category} = req.body;
@@ -16,7 +21,9 @@ const addPost = async (req, res) => {
     category: category
   });
   logger.log('info', `Successfully added post with _id : ${savedDocument._id}`);
-  return savedDocument;
+  return {
+    data: savedDocument,
+    statusCode: 201};
   }
   catch (error) {
     throw new AppError(error.message, 400);
@@ -29,7 +36,10 @@ const getAllPosts = async (req, res) => {
     new AppError(error.message, 400);
   });
   logger.log('info', `Successfully fetched all posts: `);
-  return posts;
+  return {
+    data: posts,
+    statusCode: 200
+  };
 }
 
 const getPostById = async (req, res) => {
@@ -40,7 +50,10 @@ const getPostById = async (req, res) => {
       new AppError(error.message, 400);
     });
     console.log('post - ', post);
-    return post;
+    return {
+      data: post,
+      statusCode: 200
+    };
   } catch (error) {
     throw new AppError(error.message, 400);
   }
@@ -53,7 +66,10 @@ const getPostsByUser = async (req, res) => {
     const posts = await PostModel.getPostsByUser(username).catch(error => { 
       new AppError(error.message, 400);
     });
-    return posts;
+    return {
+      data: posts,
+      statusCode: 200
+    };
   } catch (error) {
     throw new AppError(error.message, 400);
   }
@@ -65,7 +81,10 @@ const getPostsByCategory = async (req, res) => {
     const posts = await PostModel.getPostsByCategory(category).catch(error => { 
       new AppError(error.message, 400);
     });
-    return posts;
+    return {
+      data: posts,
+      statusCode: 200
+    };
   } catch (error) {
       throw new AppError(error.message, 400);
   }
@@ -84,7 +103,10 @@ const updatePost = async (req, res) => {
       new AppError(error.message, 400);
     });
     logger.log('info', `Successfully updated post with _id : ${postId}`);
-    return post;
+    return {
+      data: post,
+      statusCode: 200
+    };
   } catch(error) {
     throw new AppError(error.message, 400);
   }
