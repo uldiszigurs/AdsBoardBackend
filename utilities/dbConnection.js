@@ -7,7 +7,12 @@ const logger = require('./logger')('server');
 const MongoStore = mongo(session);
 const dbConnection = () => {
   mongoose.Promise = global.Promise; 
-  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+  mongoose.connect(process.env.MONGODB_URI, 
+    { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true, 
+    useCreateIndex: true
+  });
   mongoose.connection.on('error', () => {
     logger.log('error', 'MongoDB connection error. Please make sure MongoDB is running.');
     process.exit();
