@@ -12,7 +12,8 @@ const register = async (req, res) => {
     email: req.body.email,
     rehashedPassword: req.body.rehashedPassword,
   }).catch(catchedError => {
-    payload.error = catchedError;
+    console.dir(catchedError);
+    payload.error = catchedError.message;
     
     //400 for now will do with the message.
     //throw new AppError(error.message, 400); TODO: FIXME: 

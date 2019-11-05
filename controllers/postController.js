@@ -23,7 +23,9 @@ const addPost = async (req, res) => {
   logger.log('info', `Successfully added post with _id : ${savedDocument._id}`);
   return {
     data: savedDocument,
-    statusCode: 201};
+    statusCode: 201,
+    fallBack: deletePostById
+  };
   }
   catch (error) {
     throw new AppError(error.message, 400);
@@ -111,13 +113,23 @@ const updatePost = async (req, res) => {
     throw new AppError(error.message, 400);
   }
 }
-const deletePost = async (req, res) => {
+const deletePostById = async (req, res) => {
   try {
-
-  } catch (error) {
-    
+    console.log(req.body);
+    const postId = req.params.postid;
+    const post = await PostModel.deletePostById(postId
+    ).catch(error => { 
+      new AppError(error.message, 400);
+    });
+    logger.log('info', `Successfully deleted post with _id : ${postId}`);
+    return {
+      data: post,
+      statusCode: 200
+    };
+  } catch(error) {
+    throw new AppError(error.message, 400);
   }
 }
 
 
-export { addPost, getAllPosts, getPostById, getPostsByUser, getPostsByCategory, updatePost };
+export { addPost, getAllPosts, getPostById, getPostsByUser, getPostsByCategory, updatePost, deletePostById };

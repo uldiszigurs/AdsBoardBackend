@@ -21,7 +21,7 @@ router.get('/media', controllerWrapper(mediaController.getAllmedia));
 router.post('', controllerWrapper(postController.addPost, categoryController.updateCategoryList));
 router.get('', controllerWrapper(postController.getAllPosts));
 router.put('/postid/:postid', controllerWrapper(postController.updatePost));
-router.delete('/postid/:postid', controllerWrapper(postController.deletePost));
+router.delete('/postid/:postid', controllerWrapper(postController.deletePostById));
 
 
 //TODO: Should not be able to add comment to non existing post. 

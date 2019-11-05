@@ -27,23 +27,32 @@ const getCommentById = async (req, res) => {
 };
 
 const addComment = async (req, res) => {
-  logger.log('debug', 'addComment: %j', req.body);
-  const postById = await PostModel.getPostById(req.params.postid);
-  if (postById != null) { //return 201 code.
-    const comment = await CommentModel.save({
-      postid: req.params.postid,
-      username: req.body.username,
-      message: req.body.message,
-    }).catch(error => {
-      throw new AppError(error.message, 400);
-    });
-    return {
-      data: comment,
-      statusCode: 200
-    };
-  } else { //return 403 for denied access because the main resource doesn't exist / 400 + custom message 
+  try {
+    logger.log('debug', 'addComment: %j', req.body);
+    const postById = await PostModel.getPostById(req.params.postid);
+    if (postById !== null) { //return 201 code.
+      const comment = await CommentModel.save({
+        postid: req.params.postid,
+        username: req.body.username,
+        message: req.body.message,
+      }).catch(error => {
+        throw new AppError(error.message, 400);
+      });
+      return {
+        data: comment,
+        statusCode: 201
+      };
+    } else { //return 403 for denied access because the main resource doesn't exist / 400 + custom message 
+      return {
+        data: comment,
+        statusCode: 403,
+        error: 'Post no longer exists, hence cannot add comments to it'
+      };
+    }
+  } catch(error) {
 
   }
+  
   
 };
 

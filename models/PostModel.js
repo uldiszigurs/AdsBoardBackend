@@ -23,8 +23,8 @@ const updatePostById = async ( _id, updatedDocument) => PostModel.findOneAndUpda
     updatedDocument, 
     {new : true}
     );
-const deletePost = async (_id) => PostModel.deleteOne({_id});
+const deletePostById = async (_id) => PostModel.deleteOne({_id});
 
 
 
-export { getPostById, getPostsByUser, getAllPosts, save, getPostsByCategory, updatePostById, deletePost};
+export { getPostById, getPostsByUser, getAllPosts, save, getPostsByCategory, updatePostById, deletePostById};
