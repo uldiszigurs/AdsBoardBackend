@@ -11,6 +11,7 @@
     "plugins": [
       ["babel-plugin-transform-builtin-extend", {
           "globals": ["Error"]
-      }]
+      }],
+      ["@babel/plugin-proposal-object-rest-spread"]
     ]
   }

@@ -6,9 +6,9 @@ import AppError from '../errors/AppError';
 const logger = require('../utilities/logger')('logController');
 //if failed .get request return 500 (internal server error)
 //if failed .post request return 403 (forbidden) | 500 (internal server error) if failed
-//if successful .post return 201
-//if successful .put return 200
-//if successful .delete return 200
+//if successful .post return 201 (created)
+//if successful .put return 200 (successful)
+//if successful .delete return 200 (successful)
 
 const addPost = async (req, res) => {
   const {username, title, description, category} = req.body;
@@ -109,6 +109,13 @@ const updatePost = async (req, res) => {
     };
   } catch(error) {
     throw new AppError(error.message, 400);
+  }
+}
+const deletePost = async (req, res) => {
+  try {
+
+  } catch (error) {
+    
   }
 }
 

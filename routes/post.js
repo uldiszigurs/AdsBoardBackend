@@ -1,6 +1,4 @@
 import express from 'express';
-
-import asyncMiddleware from '../middlewares/asyncMiddleware';
 import { diskStorageSingle } from '../middlewares/diskStorage';
 import * as postController from '../controllers/postController';
 import * as commentController from '../controllers/commentController';
@@ -23,6 +21,7 @@ router.get('/media', controllerWrapper(mediaController.getAllmedia));
 router.post('', controllerWrapper(postController.addPost, categoryController.updateCategoryList));
 router.get('', controllerWrapper(postController.getAllPosts));
 router.put('/postid/:postid', controllerWrapper(postController.updatePost));
+router.delete('/postid/:postid', controllerWrapper(postController.deletePost));
 
 
 //TODO: Should not be able to add comment to non existing post. 

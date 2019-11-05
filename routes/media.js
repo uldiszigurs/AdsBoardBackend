@@ -1,16 +1,16 @@
 import express from 'express';
 
-import asyncMiddleware from '../middlewares/asyncMiddleware';
 import { diskStorageSingle } from '../middlewares/diskStorage';
 import * as mediaController from '../controllers/mediaController';
 import * as commentController from '../controllers/commentController';
+import controllerWrapper from '../utilities/controllerWrapper';
 
 const router = express.Router();
 
-router.get('', asyncMiddleware(mediaController.getPosts));
-router.post('', asyncMiddleware(mediaController.addPosts));
-router.post('/content/image', diskStorageSingle, asyncMiddleware(mediaController.attachMedia));
-router.get('/:mediaId', asyncMiddleware(mediaController.getPostById));
+router.get('', controllerWrapper(mediaController.getPosts));
+router.post('', controllerWrapper(mediaController.addPosts));
+router.post('/content/image', diskStorageSingle, controllerWrapper(mediaController.attachMedia));
+router.get('/:mediaId', controllerWrapper(mediaController.getPostById));
 
 
 export default router;

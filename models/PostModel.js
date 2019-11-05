@@ -23,8 +23,8 @@ const updatePostById = async ( _id, updatedDocument) => PostModel.findOneAndUpda
     updatedDocument, 
     {new : true}
     );
-    //removed callback, based on overloads callback is optional.
+const deletePost = async (_id) => PostModel.deleteOne({_id});
 
 
 
-export { getPostById, getPostsByUser, getAllPosts, save, getPostsByCategory, updatePostById};
+export { getPostById, getPostsByUser, getAllPosts, save, getPostsByCategory, updatePostById, deletePost};
