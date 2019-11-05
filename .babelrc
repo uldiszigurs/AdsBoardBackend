@@ -1,10 +1,6 @@
 {
     "presets": [
-      ["env", {
-        "targets": {
-          "node": "current"
-        }
-      }]
+      ["@babel/preset-env"]
     ],
     "sourceMap": "inline",
     "retainLines": true,
