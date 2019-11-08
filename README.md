@@ -18,40 +18,8 @@ Issues :
 
 
 ## TODO: 
-- merge schemas who share same info, e.g. comment & media are both bound to postId : 
-current potential option 
-addition
-Post : {
-  _id, 
-  title, 
-  description, 
-  createdAt, 
-  updatedAt, 
-  media : {
-    _id,
-    postId,
-    url/name
-    createdAt, 
-    updatedAt,
-  }
-  category : [
-    {
-      _id,
-      categoryName,
-      createdAt, 
-      updatedAt,
-      postId : Array < string >
-    },
-  ],
-  comments : [
-    {
-      _id,
-      postId ,
-      content(message),
-      createdAt,
-      updatedAt,
-    },
-  ]
-}
-- add .put (update) & .delete methods for comments & posts; done for posts, still need for comments
+- Utilize mongoose built in features : validation, subdocuments, subdocument methods, `parent()` etc.
+
+- add `.put` (update) & `.delete` methods for comments & posts; ~~done for posts~~, still need for comments
+No longer the case really due to another endpoint revamp
 - case sensitivity in categories list should not matter

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const commentSchema = new mongoose.Schema(
   {
     postid: { type: String, unique: false, required: true },
-    username: { type: String, unique: false, required: true },
+    username: { type: String, trim: true, unique: false, required: true },
     message: { type: String, trim: true, unique: false, required: true },
   },
   { timestamps: true },

@@ -1,11 +1,16 @@
 import mongoose from 'mongoose';
+import commentSchema from './commentModel';
+import mediaSchema from './mediaModel';
 //trim is for whitespace elimination (smthing like that)
 const PostSchema = new mongoose.Schema({
-    username : { type: String, trim: true, unique: false, required: true },
+    username : { type: String, trim: true, unique: false, required: true, uppercase: true},
     title : { type: String, trim: true, unique: false, required: true },
     description : { type: String, trim: true, unique: false, required: true },
-    category : {type : String, trim: true,  unique: false, required: false, default: 'other'} // TODO: default isn't used properly, look for alternative / remove,
-    // or combination with required might be 
+    category : {type : String, trim: true,  unique: false, required: false, default: 'other'},
+    comments : {type: [commentSchema], required: false},
+    media : { type: mediaSchema, required: false }
+    // TODO: default isn't used properly, look for alternative / remove,
+    // or combination with required might be the fault
     //FIXME: changed category from requrired:true to required:false
     },   
     { timestamps: { createdAt: true, updatedAt: true } });
@@ -21,7 +26,7 @@ const getAllPosts = async () => PostModel.find();
 const updatePostById = async ( _id, updatedDocument) => PostModel.findOneAndUpdate(
     { _id }, 
     updatedDocument, 
-    {new : true}
+    {new : true} //return modified document
     );
 const deletePostById = async (_id) => PostModel.deleteOne({_id});
 
