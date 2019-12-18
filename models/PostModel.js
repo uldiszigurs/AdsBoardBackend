@@ -1,14 +1,22 @@
 import mongoose from 'mongoose';
-import commentSchema from './commentModel';
-import mediaSchema from './mediaModel';
-//trim is for whitespace elimination (smthing like that)
+//import mediaSchema from './mediaModel';
+//trim is for useless whitespace elimination at the end & start (not sure about middle)
+const commentSchema = new mongoose.Schema(
+    {
+      //postid: { type: String, unique: false, required: true }, //not needed by current schema definition
+      username: { type: String, trim: true, unique: false, required: true },
+      message: { type: String, trim: true, unique: false, required: true },
+    },
+    { timestamps: true },
+  );
+  //message = content of comment, username = posted by X user, postId = id of 
 const PostSchema = new mongoose.Schema({
-    username : { type: String, trim: true, unique: false, required: true, uppercase: true},
+    username : { type: String, trim: true, unique: false, required: true, uppercase: true}, //user who made the post
     title : { type: String, trim: true, unique: false, required: true },
     description : { type: String, trim: true, unique: false, required: true },
     category : {type : String, trim: true,  unique: false, required: false, default: 'other'},
     comments : {type: [commentSchema], required: false},
-    media : { type: mediaSchema, required: false }
+    //media : { type: mediaSchema, required: false }
     // TODO: default isn't used properly, look for alternative / remove,
     // or combination with required might be the fault
     //FIXME: changed category from requrired:true to required:false
@@ -29,7 +37,16 @@ const updatePostById = async ( _id, updatedDocument) => PostModel.findOneAndUpda
     {new : true} //return modified document
     );
 const deletePostById = async (_id) => PostModel.deleteOne({_id});
+const addComment = async (_id, comment) => PostModel.findById({ _id })
+.then((result) => {
+    console.log(result);
+    result.comments.push({comment});
+}
+.then(() => {
+PostModel.save()
+}));  //comment consists of username, message
 
 
 
-export { getPostById, getPostsByUser, getAllPosts, save, getPostsByCategory, updatePostById, deletePostById};
+
+export { getPostById, getPostsByUser, getAllPosts, save, getPostsByCategory, updatePostById, deletePostById, addComment};

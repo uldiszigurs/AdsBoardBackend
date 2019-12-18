@@ -10,7 +10,7 @@ const mediaSchema = new mongoose.Schema(
     postid: { type: String, unique: false, required: true, trim: true },
     username: { type: String, unique: false, required: true, trim: true },
     mainPath: { type: String, unique: true, required: true, trim: true },
-    otherPaths: [additionalMedia]
+    otherPaths: { type : [additionalMedia], unique: false, required: false, trim: true  }
   },
   { timestamps: true },
 );

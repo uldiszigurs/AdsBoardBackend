@@ -11,7 +11,8 @@ const dbConnection = () => {
     { 
     useNewUrlParser: true,
     useUnifiedTopology: true, 
-    useCreateIndex: true
+    useCreateIndex: true, 
+    useFindAndModify: false 
   });
   mongoose.connection.on('error', () => {
     logger.log('error', 'MongoDB connection error. Please make sure MongoDB is running.');
