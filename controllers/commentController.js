@@ -29,12 +29,13 @@ const getCommentById = async (req, res) => {
 
 const addComment = async (req, res) => {
   try {
-    console.log(`req.params.postid = `, req.params.postid);
+    //console.log(`req.params.postid = `, req.params.postid);
     logger.log('debug', 'addComment: %j', req.body);
     const postById = await addCommentMethod(req.params.postid, req.body);
-    console.log('POSTBYID - ', postById);
+    //console.log('POSTBYID - ', postById);
+    logger.log('info', `Successfully added comment to post : ${postById._id} with _id : ${postById.comments[postById.comments.length - 1]._id}`);
       return ({
-        message: postById, 
+        data: postById.comments[postById.comments.length - 1],  //return last added comment
         statusCode: 200
       });
     }
