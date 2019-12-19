@@ -38,27 +38,16 @@ const updatePostById = async ( _id, updatedDocument) => PostModel.findOneAndUpda
     );
 const deletePostById = async (_id) => PostModel.deleteOne({_id});
 const addComment = async (parentPostId, comment) => { 
-  //currently with this method, adding a comment changes the timestamps on all other comments, due to save I believe.
-  //might be way to toggle settings when "save"ing
   try {
-    const postById = await getPostById(parentPostId);
-    const updatedComments = postById.comments || [];
-      updatedComments.push(comment);
-    
-    console.table(updatedComments);
-    //if post already has comments => push the comment, else => create array with just the one comment in it
-
     const parentDocument = await PostModel.findOneAndUpdate({ _id: parentPostId },
     {
-      comments : updatedComments //not sure if this will trigger date creating, as its just pushing raw values rather than inserting? 
+      $push : {
+        comments: comment
+      }
     },
     {new : true} );
-
-    //console.log('parentDocument.comments - ',parentDocument.comments);
-    //console.log('comment -', comment);
-  
     return parentDocument;
-
+    
   } catch (error) {
     console.log(error);
   }
