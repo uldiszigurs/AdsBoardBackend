@@ -19,7 +19,7 @@ const controllerWrapper = (...functions) => async (request, response, error) => 
                 ${functions[i]} is not a function!`);
             }
             const result = await functions[i](request, response); //await all provided functions
-            console.log({[`result${i}`]: result}); //debugging
+            //console.log({[`result${i}`]: result}); //debugging
             if (i === defualtReturn) { //set the return value based on default / provided variable defaultReturn
               returnResult = result;
             }

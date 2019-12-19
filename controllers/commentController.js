@@ -32,6 +32,7 @@ const addComment = async (req, res) => {
     console.log(`req.params.postid = `, req.params.postid);
     logger.log('debug', 'addComment: %j', req.body);
     const postById = await addCommentMethod(req.params.postid, req.body);
+    console.log('POSTBYID - ', postById);
       return ({
         message: postById, 
         statusCode: 200

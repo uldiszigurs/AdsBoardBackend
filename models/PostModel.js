@@ -37,14 +37,26 @@ const updatePostById = async ( _id, updatedDocument) => PostModel.findOneAndUpda
     {new : true} //return modified document
     );
 const deletePostById = async (_id) => PostModel.deleteOne({_id});
-const addComment = async (_id, comment) => PostModel.findById({ _id })
-.then((result) => {
-    console.log(result);
-    result.comments.push({comment});
+const addComment = async (parentPostId, comment) => { 
+  try {
+    const postById = await getPostById(parentPostId);
+    const parentDocument = await PostModel.findOneAndUpdate({ _id: parentPostId },
+    {
+      comments : [comment] //not sure if this will trigger date creating, as its just pushing raw values rather than inserting? 
+    },
+    {new : true} );
+
+    console.log('parentDocument.comments - ',parentDocument.comments);
+    console.log('comment -', comment);
+  
+    return parentDocument;
+
+  } catch (error) {
+    console.log(error);
+  }
+  
 }
-.then(() => {
-PostModel.save()
-}));  //comment consists of username, message
+ //comment consists of {username, message} 
 
 
 
