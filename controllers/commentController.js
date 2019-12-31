@@ -35,7 +35,7 @@ const addComment = async (req, res) => {
     //console.log('POSTBYID - ', postById);
     logger.log('info', `Successfully added comment to post : ${postById._id} with _id : ${postById.comments[postById.comments.length - 1]._id}`);
       return ({
-        data: postById.comments[postById.comments.length - 1],  //return last added comment
+        data: postById.comments[postById.comments.length - 1],  //return last added comment, from query
         statusCode: 200
       });
     }

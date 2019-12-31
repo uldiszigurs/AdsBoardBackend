@@ -10,12 +10,30 @@ const commentSchema = new mongoose.Schema(
     { timestamps: true },
   );
   //message = content of comment, username = posted by X user, postId = id of 
+
+  const additionalMedia = new mongoose.Schema(
+    {
+      path: { type: String, unique: true, required: true, trim: true },
+    },
+    { timestamps: true },
+  );
+  const mediaSchema = new mongoose.Schema(
+    {
+      mainPath: { type: String, unique: true, required: true, trim: true }, //path represents relative path & name of the media file
+      otherPaths: { type : [additionalMedia], unique: false, required: false, trim: true  }
+    },
+    { timestamps: true },
+  );
+  
+
 const PostSchema = new mongoose.Schema({
     username : { type: String, trim: true, unique: false, required: true, uppercase: true}, //user who made the post
     title : { type: String, trim: true, unique: false, required: true },
     description : { type: String, trim: true, unique: false, required: true },
     category : {type : String, trim: true,  unique: false, required: false, default: 'other'},
     comments : {type: [commentSchema], required: false},
+    media : {type: mediaSchema, trim: true,  unique: false, required: false} //images, gifs, potentially videos
+    
     //media : { type: mediaSchema, required: false }
     // TODO: default isn't used properly, look for alternative / remove,
     // or combination with required might be the fault
